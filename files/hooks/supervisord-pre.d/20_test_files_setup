@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# If our /var/www is empty - then copy over a suite of test files
+echo -n "Checking if /var/www is empty - "
+if [ $(find /var/www -maxdepth 0 -type d -empty 2>/dev/null) ]; then
+  echo " - Yes - copying content"
+  mkdir -p /var/www/html
+  cp -Rvp /usr/src/test_scripts/* /var/www/html
+else
+  echo " - Directory not empty.. don't touch content"
+fi
+

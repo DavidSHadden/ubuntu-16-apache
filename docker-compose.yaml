@@ -1,0 +1,10 @@
+version: '2'
+services:
+  ubuntu-16-apache-2.4:
+    hostname: apache
+    container_name: apache
+    user: "1000000"
+    build: .
+    image: ubuntu-16-apache-2.4
+    ports:
+      - "8080:8080"

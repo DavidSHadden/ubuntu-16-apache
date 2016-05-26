@@ -1,0 +1,35 @@
+build:
+  build:
+    image: 1and1internet/centos-7-docker
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    commands:
+      - docker build --pull --no-cache -t ${CI_REPO#*/}:$DRONE_BUILD_NUMBER .
+  spectests:
+    image: 1and1internet/ubuntu-16-rspec
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    commands:
+      - export IMAGE=${CI_REPO#*/}:$DRONE_BUILD_NUMBER
+      - git clone https://github.com/1and1internet/drone-tests.git ../
+      - cd ../ ; rspec -f documentation spec/spec_helper.rb
+  publish:
+    when:
+      branch: master
+    image: 1and1internet/centos-7-docker
+    privileged: true
+    environment:
+      - DOCKERHUB_USERID=$$DOCKERHUB_USERID
+      - DOCKERHUB_EMAIL=$$DOCKERHUB_EMAIL
+      - DOCKERHUB_PASSWORD=$$DOCKERHUB_PASSWORD
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    commands:
+      - echo 1
+notify:
+  webhook:
+    urls:
+      - https://templateupdater.fasthosts.co.uk/hook
+
