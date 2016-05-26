@@ -3,8 +3,14 @@ services:
   ubuntu-16-apache-2.4:
     hostname: apache
     container_name: apache
+#    volumes:
+#        - /path/to/your/local/ssl/cert/:/path/to/openshift/secret
     user: "1000000"
     build: .
-    image: ubuntu-16-apache-2.4
+    image: ubuntu-16-apache-2.4-sslpoc
     ports:
       - "8080:8080"
+      - "8443:8443"
+#    environment:
+#      - SSL_KEY=/path/to/openshift/secret/key.key
+#      - SSL_CERT=/path/to/openshift/secret/cert.crt

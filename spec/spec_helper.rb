@@ -10,7 +10,7 @@ if not ENV['IMAGE'] then
 end
 
 LISTEN_PORT=8080
-CONTAINER_START_DELAY=2
+CONTAINER_START_DELAY=4
 
 RSpec.configure do |c|
   @image = Docker::Image.get(ENV['IMAGE'])
