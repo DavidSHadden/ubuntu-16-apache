@@ -7,7 +7,7 @@ services:
 #        - /path/to/your/local/ssl/cert/:/path/to/openshift/secret
     user: "1000000"
     build: .
-    image: ubuntu-16-apache-2.4-sslpoc
+    image: ubuntu-16-apache-2.4
     ports:
       - "8080:8080"
       - "8443:8443"
