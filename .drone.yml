@@ -1,35 +1,42 @@
 build:
   build:
-    image: 1and1internet/centos-7-docker
-    privileged: true
+    when:
+      event: push
+    image: 1and1internet/template-library-tools
+    pull: true
+    auth_config:
+      username: $$DOCKERHUB_USERNAME
+      password: $$DOCKERHUB_PASSWORD
+      email: $$DOCKERHUB_EMAIL
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     commands:
-      - docker build --pull --no-cache -t ${CI_REPO#*/}:$DRONE_BUILD_NUMBER .
+      - docker build --pull --no-cache -t dronebuild$DRONE_BUILD_NUMBER/${CI_REPO#*/} .
   spectests:
     image: 1and1internet/ubuntu-16-rspec
     privileged: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     commands:
-      - export IMAGE=${CI_REPO#*/}:$DRONE_BUILD_NUMBER
-      - git clone https://github.com/1and1internet/drone-tests.git ../
-      - cd ../ ; rspec -f documentation spec/spec_helper.rb
+      - export IMAGE=dronebuild$DRONE_BUILD_NUMBER/${CI_REPO#*/}
+      - mkdir ../drone-tests; git clone https://github.com/1and1internet/drone-tests.git ../drone-tests
+      - rspec -f documentation spec/spec_helper.rb
   publish:
     when:
       branch: master
-    image: 1and1internet/centos-7-docker
-    privileged: true
-    environment:
-      - DOCKERHUB_USERID=$$DOCKERHUB_USERID
-      - DOCKERHUB_EMAIL=$$DOCKERHUB_EMAIL
-      - DOCKERHUB_PASSWORD=$$DOCKERHUB_PASSWORD
+      event: push
+    image: 1and1internet/template-library-tools
+    auth_config:
+     username: $$DOCKERHUB_USERNAME
+     password: $$DOCKERHUB_PASSWORD
+     email: $$DOCKERHUB_EMAIL
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+     - /var/run/docker.sock:/var/run/docker.sock
+     - /tmp/image-comparison:/tmp/image-comparison
+    environment:
+     - DOCKERHUB_USERNAME=$$DOCKERHUB_USERNAME
+     - DOCKERHUB_EMAIL=$$DOCKERHUB_EMAIL
+     - DOCKERHUB_PASSWORD=$$DOCKERHUB_PASSWORD
     commands:
-      - echo 1
-notify:
-  webhook:
-    urls:
-      - https://templateupdater.fasthosts.co.uk/hook
+     - bash /scripts/publish.sh
 
