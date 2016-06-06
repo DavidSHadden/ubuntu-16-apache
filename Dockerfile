@@ -1,4 +1,4 @@
-FROM 1and1internet/ubuntu-16:unstable
+FROM 1and1internet/ubuntu-16:latest
 MAINTAINER james.wilkins@fasthosts.com
 ARG DEBIAN_FRONTEND=noninteractive
 COPY files /
