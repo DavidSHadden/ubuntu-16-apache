@@ -24,7 +24,7 @@ RSpec.configure do |c|
   }
 
   describe command("sleep #{CONTAINER_START_DELAY}") do
-    its(:stdout) { should eq "\n" }
+    its(:stdout) { should eq "" }
   end
 
   describe "tests" do
