@@ -1,4 +1,3 @@
-# docker-ubuntu-16-apache-2.4
+# ubuntu-16-apache
 
-Apache2.4 Container
 
