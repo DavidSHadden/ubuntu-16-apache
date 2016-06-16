@@ -4,7 +4,7 @@ services:
     hostname: apache
     container_name: apache
 #    volumes:
-#        - /path/to/your/local/ssl/cert/:/path/to/openshift/secret
+#        - /tmp/logfiles:/var/log/apache2
     user: "1000000"
     build: .
     image: ubuntu-16-apache-2.4

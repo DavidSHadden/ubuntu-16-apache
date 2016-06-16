@@ -3,7 +3,7 @@ MAINTAINER james.wilkins@1and1.co.uk
 ARG DEBIAN_FRONTEND=noninteractive
 COPY files /
 RUN \
-  apt-get update && apt-get install -o Dpkg::Options::=--force-confdef -y apache2 && \
+  apt-get update && apt-get install -o Dpkg::Options::=--force-confdef -y apache2 cronolog && \
   a2enmod rewrite ssl headers && \
   rm -rf /var/lib/apt/lists/* && \
   sed -i -e 's/Listen 80/Listen 8080/g' /etc/apache2/ports.conf && \
