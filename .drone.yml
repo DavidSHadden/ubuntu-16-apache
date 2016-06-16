@@ -10,7 +10,6 @@ build:
       email: $$DOCKERHUB_EMAIL
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - $$SHARED_BUILD_STORAGE:/tmp/image-comparison
     commands:
       - python3 -u /scripts/images/build.py
   spectests:
@@ -34,7 +33,7 @@ build:
      email: $$DOCKERHUB_EMAIL
     volumes:
      - /var/run/docker.sock:/var/run/docker.sock
-     - /tmp/image-comparison:/tmp/image-comparison
+     - $$SHARED_BUILD_STORAGE:/tmp/image-comparison
     environment:
      - DOCKERHUB_USERNAME=$$DOCKERHUB_USERNAME
      - DOCKERHUB_EMAIL=$$DOCKERHUB_EMAIL
