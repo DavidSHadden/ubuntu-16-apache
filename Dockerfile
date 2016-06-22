@@ -18,4 +18,4 @@ RUN \
   chmod -R 777 /etc/apache2/sites-enabled
 WORKDIR /var/www
 
-EXPOSE 8080
+EXPOSE 8080 8443

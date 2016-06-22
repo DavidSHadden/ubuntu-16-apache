@@ -2,15 +2,15 @@
 #  SSL Configuration.
 
 #If no SSL provided then will exit and continue.
-if [[ -z "$SSL_KEY" ]] && [[ -z "$SSL_CERT" ]]; then
+if [[ ! -e "/ssl/ssl.key" ]] && [[ ! -e "/ssl/ssl.crt" ]]; then
    echo "Not enabling SSL as neither key nor cert provided."
    exit 0
 
 #If key and cert are provided, check they match. 
-elif [[ ! -z "$SSL_KEY" ]] && [[ ! -z "$SSL_CERT" ]]; then
+elif [[ ! -z "/ssl/ssl.key" ]] && [[ ! -z "/ssl/ssl.crt" ]]; then
    
-    KEYCHECK=`openssl rsa -in $SSL_KEY -check 2>&1 | grep --quiet "ok" ; echo $?`
-    CERTCHECK=`openssl x509 -in $SSL_CERT -text -noout 2>&1 | grep --quiet "CA:TRUE" ; echo $?`
+    KEYCHECK=`openssl rsa -in /ssl/ssl.key -check 2>&1 | grep --quiet "ok" ; echo $?`
+    CERTCHECK=`openssl x509 -in /ssl/ssl.crt -text -noout 2>&1 | grep --quiet "CA:TRUE" ; echo $?`
     if [ "$KEYCHECK" == "1"  ]; then
         echo "Key not valid. Configuration failed."
         exit 1
@@ -19,8 +19,8 @@ elif [[ ! -z "$SSL_KEY" ]] && [[ ! -z "$SSL_CERT" ]]; then
         echo "Cert is not valid. Configuration failed."
         exit 1
     fi
-    KEYMD5=`openssl rsa -noout -modulus -in "$SSL_KEY" | openssl md5 | sed 's/^.*= //'`
-    CERTMD5=`openssl x509 -noout -modulus -in "$SSL_CERT" | openssl md5 | sed 's/^.*= //'`
+    KEYMD5=`openssl rsa -noout -modulus -in "/ssl/ssl.key" | openssl md5 | sed 's/^.*= //'`
+    CERTMD5=`openssl x509 -noout -modulus -in "/ssl/ssl.crt" | openssl md5 | sed 's/^.*= //'`
     if [ "$KEYMD5" != "$CERTMD5" ]; then
         echo "Key and Certificate don't match. Configuration failed."
         exit 1
