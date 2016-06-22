@@ -5,6 +5,7 @@ services:
     container_name: apache
 #    volumes:
 #        - /path/to/test/ssl/:/ssl
+#        - /tmp/logfiles:/var/log/apache2
     user: "1000000"
     build: .
     image: ubuntu-16-apache-2.4
