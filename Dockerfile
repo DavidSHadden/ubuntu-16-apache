@@ -2,6 +2,8 @@ FROM 1and1internet/ubuntu-16:latest
 MAINTAINER james.wilkins@1and1.co.uk
 ARG DEBIAN_FRONTEND=noninteractive
 COPY files /
+ENV SSL_KEY=/ssl/ssl.key
+    SSL_CERT=/ssl/ssl.crt
 RUN \
   apt-get update && apt-get install -o Dpkg::Options::=--force-confdef -y apache2 cronolog && \
   a2enmod rewrite ssl headers && \
