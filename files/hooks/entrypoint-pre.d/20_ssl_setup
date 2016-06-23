@@ -27,8 +27,10 @@ elif [[ ! -z "$SSL_KEY" ]] && [[ ! -z "$SSL_CERT" ]]; then
     #Passed all tests, we'll configure SSL.
     else
         echo "Enabling SSL."
-        sed -i -e 's/#Listen 8443/Listen 8443/g' /etc/apache2/ports.conf
-       ln -s /etc/apache2/sites-available/001-default-ssl.conf /etc/apache2/sites-enabled/001-default-ssl.conf
+        cp /etc/apache2/ports.conf /tmp
+        sed -i -e 's/#Listen 8443/Listen 8443/g' /tmp/ports.conf
+        cat /tmp/ports.conf > /etc/apache2/ports.conf
+        ln -s /etc/apache2/sites-available/001-default-ssl.conf /etc/apache2/sites-enabled/001-default-ssl.conf
     fi
      
 #Otherwise we will fail startup.
