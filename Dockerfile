@@ -3,10 +3,11 @@ MAINTAINER james.wilkins@1and1.co.uk
 ARG DEBIAN_FRONTEND=noninteractive
 COPY files /
 ENV SSL_KEY=/ssl/ssl.key \
-    SSL_CERT=/ssl/ssl.crt
+    SSL_CERT=/ssl/ssl.crt \
+    DOCUMENT_ROOT=/var/www/html
 RUN \
   apt-get update && apt-get install -o Dpkg::Options::=--force-confdef -y apache2 cronolog && \
-  a2enmod rewrite ssl headers && \
+  a2enmod rewrite ssl headers macro && \
   rm -rf /var/lib/apt/lists/* && \
   sed -i -e 's/Listen 80/Listen 8080/g' /etc/apache2/ports.conf && \
   sed -i -e 's/DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm/DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm/g' /etc/apache2/mods-available/dir.conf && \
