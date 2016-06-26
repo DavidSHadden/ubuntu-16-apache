@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ ! -d  "$DOCUMENT_ROOT" ]; then
+   echo "Creating folder $DOCUMENT_ROOT"
+   mkdir -p "$DOCUMENT_ROOT"
+else 
+   echo "$DOCUMENT_ROOT already exists."
+fi
