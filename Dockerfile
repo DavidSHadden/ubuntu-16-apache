@@ -19,6 +19,5 @@ RUN \
   chmod 666 /etc/apache2/ports.conf && \
   chmod -R 755 /etc/apache2/sites-available && \
   chmod -R 777 /etc/apache2/sites-enabled
-WORKDIR /var/www
 
 EXPOSE 8080 8443
