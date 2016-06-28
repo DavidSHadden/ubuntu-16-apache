@@ -3,5 +3,5 @@ if [ ! -d  "/var/www/$DOCUMENT_ROOT" ]; then
    echo "Creating folder /var/www/$DOCUMENT_ROOT"
    mkdir -p "/var/www/$DOCUMENT_ROOT"
 else 
-   echo "$DOCUMENT_ROOT already exists."
+   echo "/var/www/$DOCUMENT_ROOT already exists."
 fi
