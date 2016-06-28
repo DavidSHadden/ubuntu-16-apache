@@ -4,7 +4,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 COPY files /
 ENV SSL_KEY=/ssl/ssl.key \
     SSL_CERT=/ssl/ssl.crt \
-    DOCUMENT_ROOT=/var/www/html
+    DOCUMENT_ROOT=html
 RUN \
   apt-get update && apt-get install -o Dpkg::Options::=--force-confdef -y apache2 cronolog && \
   a2enmod rewrite ssl headers macro && \
