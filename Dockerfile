@@ -10,7 +10,7 @@ RUN \
   a2enmod rewrite ssl headers macro && \
   rm -rf /var/lib/apt/lists/* && \
   sed -i -e 's/Listen 80/Listen 8080/g' /etc/apache2/ports.conf && \
-  sed -i -e 's/DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm/DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm/g' /etc/apache2/mods-available/dir.conf && \
+#  sed -i -e 's/DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm/DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm/g' /etc/apache2/mods-available/dir.conf && \
   mkdir -p /var/lock/apache2 && mkdir -p /var/run/apache2 && \
   chmod -R 777 /var/log/apache2 /var/lock/apache2 /var/run/apache2 /var/www && \
   echo "SSLProtocol ALL -SSLv2 -SSLv3" >> /etc/apache2/apache2.conf && \
