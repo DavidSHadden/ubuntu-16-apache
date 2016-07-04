@@ -27,7 +27,7 @@ build:
     when:
       branch: master
       event: push
-    image: 1and1internet/template-library-tools
+    image: 1and1internet/template-library-tools:giraffe
     auth_config:
      username: $$DOCKERHUB_USERNAME
      password: $$DOCKERHUB_PASSWORD
