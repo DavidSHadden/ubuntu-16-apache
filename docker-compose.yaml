@@ -1,6 +1,6 @@
 version: '2'
 services:
-  ubuntu-16-apache-2.4:
+  ubuntu-16-apache:
     hostname: apache
     container_name: apache
 #    volumes:
@@ -8,7 +8,7 @@ services:
 #        - /tmp/logfiles:/var/log/apache2
     user: "1000000"
     build: .
-    image: ubuntu-16-apache-2.4
+    image: ubuntu-16-apache
     ports:
       - "8080:8080"
       - "8443:8443"
