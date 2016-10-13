@@ -7,7 +7,6 @@ ENV SSL_KEY=/ssl/ssl.key \
     DOCUMENT_ROOT=html
 RUN \
   apt-get update && apt-get install -o Dpkg::Options::=--force-confdef -y apache2 cronolog build-essential git apache2-dev && \
-  rm -rf /var/lib/apt/lists/* && \
   mkdir /tmp/mod_rpaf && \
   git clone https://github.com/gnif/mod_rpaf.git /tmp/mod_rpaf && \
   update-alternatives --install /bin/sh sh /bin/bash 100 && \
@@ -26,6 +25,8 @@ RUN \
   chmod -R 777 /etc/apache2/sites-enabled && \
   a2enmod rewrite ssl headers macro rpaf && \
   a2disconf other-vhosts-access-log && \
-  a2enconf vhosts-logging
+  a2enconf vhosts-logging && \
+  apt autoremove build-essential apache2-dev git -y && \
+  rm -rf /var/lib/apt/lists/*
 
 EXPOSE 8080 8443
