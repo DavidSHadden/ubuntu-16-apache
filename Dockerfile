@@ -24,6 +24,6 @@ RUN \
   chmod 666 /etc/apache2/ports.conf && \
   chmod -R 755 /etc/apache2/sites-available && \
   chmod -R 777 /etc/apache2/sites-enabled && \
-  a2enmod rewrite ssl headers macro rpaf
+  a2enmod rewrite ssl headers macro
 
 EXPOSE 8080 8443
