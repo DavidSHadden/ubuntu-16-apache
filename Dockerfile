@@ -1,6 +1,7 @@
 FROM 1and1internet/ubuntu-16:latest
 MAINTAINER james.wilkins@1and1.co.uk
 ARG DEBIAN_FRONTEND=noninteractive
+ARG RPAF_VERSION=tags/v0.8.4
 COPY files /
 ENV SSL_KEY=/ssl/ssl.key \
     SSL_CERT=/ssl/ssl.crt \
@@ -11,6 +12,7 @@ RUN \
   git clone https://github.com/gnif/mod_rpaf.git /tmp/mod_rpaf && \
   update-alternatives --install /bin/sh sh /bin/bash 100 && \
   cd /tmp/mod_rpaf && \
+  git checkout $RPAF_VERSION && \
   ls -la && \
   make && \
   make install && \
@@ -27,6 +29,7 @@ RUN \
   a2disconf other-vhosts-access-log && \
   a2enconf vhosts-logging && \
   apt autoremove build-essential apache2-dev git -y && \
+  rm /tmp/mod_rpaf -rf && \
   rm -rf /var/lib/apt/lists/*
 
 EXPOSE 8080 8443
